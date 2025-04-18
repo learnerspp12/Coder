@@ -1,15 +1,12 @@
+
 import tkinter as tk
 from tkinter import messagebox
-from auth import authenticate  # Import the authentication function
 
 
 def login():
     username = username_entry.get()
     password = password_entry.get()
-
-
-    # Use the authenticate function from auth.py
-    if authenticate(username, password):
+    if username == "admin" and password == "password":  # Example credentials
         messagebox.showinfo("Login Successful", "Welcome!")
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
@@ -23,7 +20,8 @@ def main():
 
     # Create a frame to center the elements
     frame = tk.Frame(root)
-    frame.pack(expand=True)  # Center the frame both horizontally and vertically
+    # Center the frame both horizontally and vertically
+    frame.pack(expand=True)
 
 
     # Username label and entry
