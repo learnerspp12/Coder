@@ -20,12 +20,17 @@ def main():
 
     # Create a frame to center the elements
     frame = tk.Frame(root)
+
     # Center the frame both horizontally and vertically
     frame.pack(expand=True)
+=======
+    frame.pack(expand=True)  # Center the frame both horizontally and vertically
+
 
 
     # Username label and entry
     tk.Label(frame, text="Username:").pack(pady=5)
+
     global username_entry
     username_entry = tk.Entry(frame)
     username_entry.pack(pady=5)
@@ -43,7 +48,22 @@ def main():
 
 
     root.mainloop()
+=======
+    tk.Entry(frame).pack(pady=5)
 
+
+
+    # Password label and entry
+    tk.Label(frame, text="Password:").pack(pady=5)
+    tk.Entry(frame, show="*").pack(pady=5)
+
+
+    # Login button
+    tk.Button(frame, text="Login").pack(pady=10)
+
+
+    root.mainloop()
+# Is this it ?
 
 if __name__ == "__main__":
     main()
