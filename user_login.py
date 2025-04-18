@@ -1,12 +1,12 @@
 import tkinter as tk
 
-
 def main():
     root = tk.Tk()
     root.title("User View")
-    root.geometry("300x200")
-    root.mainloop()
+    root.geometry("600x800")
 
 
-if __name__ == "__main__":
-    main()
+    # Username label and entry
+    tk.Label(root, text="Username:").pack(pady=5)
+    # Password label and entry
+    tk.Label(root, text="Password:").pack(pady=5)
