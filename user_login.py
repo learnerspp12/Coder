@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 from auth import authenticate, get_user_details, add_user, delete_user, get_student_grades, get_student_eca, update_student_profile
 
-
 def login():
     username = username_entry.get()
     password = password_entry.get()
@@ -173,10 +172,28 @@ def student_dashboard(user):
               command=update_profile).pack(pady=10)
 
 
+def admin_dashboard(user):
+    """
+    Placeholder for admin dashboard functionality.
+    """
+    messagebox.showinfo("Admin Dashboard", f"Welcome to the Admin Dashboard, {user.full_name}!")
+
+
+def student_dashboard(user):
+    """
+    Placeholder for student dashboard functionality.
+    """
+    messagebox.showinfo("Student Dashboard", f"Welcome to the Student Dashboard, {user.full_name}!")
+
+
 def main():
     root = tk.Tk()
     root.title("Login System")
+
     root.attributes("-fullscreen", True)
+
+    root.geometry("400x300")
+
 
     # Create a frame to center the elements
     frame = tk.Frame(root)
