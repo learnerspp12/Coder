@@ -1,4 +1,3 @@
-Update auth.py to handle authentication
 import os
 
 
@@ -43,21 +42,112 @@ def get_user_details(username):
     except Exception as e:
         print(f"Error: {e}")
     return None
-
-
-    Authenticate the user with the given username and password.
-    Reads credentials from the data/password.txt file.
-    Returns True if credentials are valid, otherwise False.
+def add_user(username, full_name, password, role):
+    """
+    Add a new user to users.txt and passwords.txt.
     """
     try:
-        with open("data/password.txt", "r") as file:
+        # Check if the username already exists
+        with open("data/users.txt", "r") as file:
             for line in file:
-                stored_username, stored_password = line.strip().split(",")
-                if username == stored_username and password == stored_password:
-                    return True
-    except FileNotFoundError:
-        print("Error: password.txt file not found.")
+                stored_username, _, _ = line.strip().split(",")
+                if username == stored_username:
+                    return False  # Username already exists
+
+        # Add the user to users.txt
+        with open("data/users.txt", "a") as file:
+            file.write(f"{username},{full_name},{role}\n")
+
+        # Add the user to passwords.txt
+        with open("data/passwords.txt", "a") as file:
+            file.write(f"{username},{password},{role}\n")
+
+        return True
     except Exception as e:
         print(f"Error: {e}")
-    return False
+        return False
 
+
+def delete_user(username):
+    """
+    Delete a user from users.txt and passwords.txt.
+    """
+    try:
+        # Remove the user from users.txt
+        with open("data/users.txt", "r") as file:
+            lines = file.readlines()
+        with open("data/users.txt", "w") as file:
+            for line in lines:
+                if not line.startswith(username + ","):
+                    file.write(line)
+
+        # Remove the user from passwords.txt
+        with open("data/passwords.txt", "r") as file:
+            lines = file.readlines()
+        with open("data/passwords.txt", "w") as file:
+            for line in lines:
+                if not line.startswith(username + ","):
+                    file.write(line)
+
+        return True
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
+
+
+def get_student_grades(username):
+    """
+    Fetch grades for a student from grades.txt.
+    Returns a dictionary of subjects and grades if found, otherwise None.
+    """
+    try:
+        with open("data/grades.txt", "r") as file:
+            for line in file:
+                stored_username, *grades = line.strip().split(",")
+                if username == stored_username:
+                    return grades  # Return the grades as a list
+    except FileNotFoundError:
+        print("Error: grades.txt file not found.")
+    except Exception as e:
+        print(f"Error: {e}")
+    return None
+
+
+def get_student_eca(username):
+    """
+    Fetch extracurricular activities for a student from eca.txt.
+    Returns a list of activities if found, otherwise None.
+    """
+    try:
+        with open("data/eca.txt", "r") as file:
+            for line in file:
+                stored_username, *activities = line.strip().split(",")
+                if username == stored_username:
+                    return activities  # Return the activities as a list
+    except FileNotFoundError:
+        print("Error: eca.txt file not found.")
+    except Exception as e:
+        print(f"Error: {e}")
+    return None
+
+
+def update_student_profile(username, full_name):
+    """
+    Update the student's profile information in users.txt.
+    """
+    try:
+        updated = False
+        with open("data/users.txt", "r") as file:
+            lines = file.readlines()
+        with open("data/users.txt", "w") as file:
+            for line in lines:
+                stored_username, _, role = line.strip().split(",")
+                if username == stored_username:
+                    file.write(f"{username},{full_name},{role}\n")
+                    updated = True
+                else:
+                    file.write(line)
+        return updated
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
